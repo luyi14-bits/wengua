@@ -3,6 +3,7 @@
 > 🎋 一枚精致的小算卦玩具 — 心存疑问，掷爻问卦。
 
 ![版本](https://img.shields.io/badge/version-A%200.5-aa8844)
+![协议](https://img.shields.io/badge/license-AGPL%20v3-blue)
 ![状态](https://img.shields.io/badge/status-开发中-brightgreen)
 
 > ⚠️ **免责声明**：问卦 (AskTheOracle) 仅供娱乐，所有卦象解读不构成任何人生决策依据。
