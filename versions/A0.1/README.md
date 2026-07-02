@@ -2,8 +2,8 @@
 
 > 🎋 一枚精致的小算卦玩具 — 心存疑问，掷爻问卦。
 
-![版本](https://img.shields.io/badge/version-A%200.2-aa8844)
-![状态](https://img.shields.io/badge/status-开发中-brightgreen)
+![版本](https://img.shields.io/badge/version-A%200.1-aa8844)
+![状态](https://img.shields.io/badge/status-规划中-lightgrey)
 
 ---
 
@@ -42,8 +42,6 @@
 ├── .trae/specs/            # 开发规划
 │   ├── wengua-core-casting/
 │   └── wengua-meihua/
-├── versions/               # 版本归档
-│   └── A0.1/               # A 0.1 冻结快照
 ├── LICENSE                 # AGPL v3
 ├── .gitignore
 └── README.md
@@ -55,8 +53,8 @@
 
 | 阶段 | 内容 | 状态 |
 |------|------|------|
-| **A 0.1** | 项目初始化 · 资料研究 · 架构设计 | ✅ 已冻结 |
-| **A 0.2** | 铜钱掷爻 MVP（起卦 + 查表 + 逐爻动画） | 🔨 开发中 |
+| **A 0.1** | 项目初始化 · 资料研究 · 架构设计 | ✅ 完成 |
+| **A 0.2** | 铜钱掷爻 MVP（起卦 + 查表 + 逐爻动画） | 📋 规划中 |
 | **A 0.3** | 梅花易数 MVP（三数起卦 + 互卦 + 体用生克） | 📋 规划中 |
 | **A 0.4** | 变卦解读（朱熹变占法 + 爻辞） | 📋 规划中 |
 | **A 0.5** | 体验打磨（铜钱动画 + 音效 + 分享） | 📋 规划中 |
