@@ -878,12 +878,13 @@ function generateShareCard(result, mode) {
         }
 
         ctx.fillStyle = 'rgba(201, 169, 78, 0.07)';
-        ctx.font = 'bold 80px serif';
+        ctx.font = 'bold 72px serif';
         ctx.textAlign = 'center';
         ctx.save();
-        ctx.translate(300, 400);
+        ctx.translate(300, 390);
         ctx.rotate(-0.4);
-        ctx.fillText('仅供娱乐', 0, 0);
+        ctx.fillText('仅供娱乐', 0, -30);
+        ctx.fillText('luyi14-bits', 0, 40);
         ctx.restore();
 
         ctx.fillStyle = 'rgba(201, 169, 78, 0.4)';

@@ -36,17 +36,17 @@ body {
 
 /* --- Global watermark --- */
 body::after {
-    content: '仅供娱乐';
+    content: '仅供娱乐    luyi14-bits 全栈开源项目';
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-25deg);
-    font-size: 5rem;
+    font-size: 4.5rem;
     color: rgba(201, 169, 78, 0.04);
     pointer-events: none;
     white-space: nowrap;
     z-index: 0;
-    letter-spacing: 0.5em;
+    letter-spacing: 0.3em;
     font-family: var(--font-main);
 }
 
