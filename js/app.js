@@ -373,7 +373,8 @@ function switchMode(mode) {
         // [FIX B1] 同上
         meihuaControls.classList.remove('hidden');
         nameControls.classList.add('hidden');
-        guaDisplay.querySelectorAll('.yao').forEach(el => el.remove());
+        // [FIX C1] 同时清理 .coin-flip
+        guaDisplay.querySelectorAll('.yao, .coin-flip').forEach(el => el.remove());
         document.querySelectorAll('#gua-display .meihua-trigram').forEach(el => el.remove());
         const placeholder = guaDisplay.querySelector('.placeholder');
         if (placeholder) placeholder.style.display = 'none';
@@ -395,7 +396,8 @@ function switchMode(mode) {
         // [FIX B1] 同上
         meihuaControls.classList.add('hidden');
         nameControls.classList.remove('hidden');
-        guaDisplay.querySelectorAll('.yao, .meihua-trigram').forEach(el => el.remove());
+        // [FIX C1] 同时清理 .coin-flip
+        guaDisplay.querySelectorAll('.yao, .coin-flip, .meihua-trigram').forEach(el => el.remove());
         guaDisplay.classList.remove('meihua-mode');
         const placeholder = guaDisplay.querySelector('.placeholder');
         if (placeholder) placeholder.style.display = '';
@@ -467,7 +469,8 @@ function doMeihuaCast() {
     savedMeihuaResult = result;
 
     const guaDisplay = document.getElementById('gua-display');
-    guaDisplay.querySelectorAll('.yao, .meihua-trigram').forEach(el => el.remove());
+    // [FIX C1] 同时清理 .coin-flip
+    guaDisplay.querySelectorAll('.yao, .coin-flip, .meihua-trigram').forEach(el => el.remove());
     guaDisplay.classList.add('meihua-mode');
     const placeholder = guaDisplay.querySelector('.placeholder');
     if (placeholder) placeholder.style.display = 'none';
@@ -505,7 +508,8 @@ function parseName(name) {
         if (COMPOUND_SURNAMES[name.substring(0, 2)]) {
             return { type: 'compound-double', surname: [name[0], name[1]], given: name.substring(2).split('') };
         }
-        return { type: 'compound-double', surname: [name[0], name[1]], given: name.substring(2).split('') };
+        // [FIX C2] 4+字非复姓：首字为姓，其余为名（而非前2字当复姓）
+        return { type: 'single-triple', surname: [name[0]], given: name.substring(1).split('') };
     }
     return null;
 }
@@ -579,14 +583,37 @@ function renderNameResult(result) {
     interpEl.textContent = '';
     var fragment = document.createDocumentFragment();
 
-    // 笔画明细
+    // [FIX F-05] 笔画明细使用 createElement + textContent 替代 innerHTML，防止 DOM XSS
     var detailDiv = document.createElement('div');
     detailDiv.className = 'stroke-detail';
-    var detailParts = [];
+    var strokeEntries = [];
     strokes.surnameChars.concat(strokes.givenChars).forEach(function (x) {
-        detailParts.push('<span class="stroke-char">' + x.char + '→<span class="stroke-num">' + x.stroke + '</span>画</span>');
+        var span = document.createElement('span');
+        span.className = 'stroke-char';
+        var charText = document.createTextNode(x.char);
+        span.appendChild(charText);
+        var arrow = document.createTextNode('→');
+        span.appendChild(arrow);
+        var numSpan = document.createElement('span');
+        numSpan.className = 'stroke-num';
+        numSpan.textContent = x.stroke;
+        span.appendChild(numSpan);
+        var hua = document.createTextNode('画');
+        span.appendChild(hua);
+        strokeEntries.push(span);
     });
-    detailDiv.innerHTML = detailParts.join(' / ') + '<br><span class="stroke-sum">姓' + strokes.surnameStrokes + '画 + 名' + strokes.givenStrokes + '画 = ' + strokes.totalStrokes + '画，动在第' + dongYao + '爻</span>';
+    strokeEntries.forEach(function (s, i) {
+        if (i > 0) {
+            detailDiv.appendChild(document.createTextNode(' / '));
+        }
+        detailDiv.appendChild(s);
+    });
+    var br = document.createElement('br');
+    detailDiv.appendChild(br);
+    var sumSpan = document.createElement('span');
+    sumSpan.className = 'stroke-sum';
+    sumSpan.textContent = '姓' + strokes.surnameStrokes + '画 + 名' + strokes.givenStrokes + '画 = ' + strokes.totalStrokes + '画，动在第' + dongYao + '爻';
+    detailDiv.appendChild(sumSpan);
     fragment.appendChild(detailDiv);
 
     // 本卦卡片
@@ -725,7 +752,8 @@ function doNameCast() {
     savedNameResult = result;
 
     var guaDisplay = document.getElementById('gua-display');
-    guaDisplay.querySelectorAll('.yao, .meihua-trigram').forEach(function (el) { el.remove(); });
+    // [FIX C1] 同时清理 .coin-flip
+    guaDisplay.querySelectorAll('.yao, .coin-flip, .meihua-trigram').forEach(function (el) { el.remove(); });
     guaDisplay.classList.add('meihua-mode');
     var placeholder = guaDisplay.querySelector('.placeholder');
     if (placeholder) placeholder.style.display = 'none';
@@ -742,6 +770,143 @@ function doNameCast() {
 
     document.getElementById('result').classList.remove('hidden');
     renderNameResult(result);
+}
+
+// --- 音效系统 ---
+
+var audioCtx = null;
+function ensureAudio() {
+    if (!audioCtx) {
+        try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { console.warn('[audio] AudioContext not available:', e); }
+    }
+    return audioCtx;
+}
+
+function playCastSound() {
+    try {
+        var ctx = ensureAudio();
+        if (!ctx) return;
+        var o = ctx.createOscillator();
+        var g = ctx.createGain();
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.frequency.value = 800;
+        o.type = 'sine';
+        g.gain.setValueAtTime(0.08, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+        o.start();
+        o.stop(ctx.currentTime + 0.1);
+    // [FIX F-10] 空 catch 添加 console.warn，按安全审查要求
+    } catch(e) { console.warn('[audio] playCastSound failed:', e); }
+}
+
+function playChangingSound() {
+    try {
+        var ctx = ensureAudio();
+        if (!ctx) return;
+        var o = ctx.createOscillator();
+        var g = ctx.createGain();
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.frequency.value = 1200;
+        o.type = 'sine';
+        g.gain.setValueAtTime(0.08, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+        o.start();
+        o.stop(ctx.currentTime + 0.2);
+    // [FIX F-10] 空 catch 添加 console.warn，按安全审查要求
+    } catch(e) { console.warn('[audio] playChangingSound failed:', e); }
+}
+
+// --- 分享卡片 ---
+
+function generateShareCard(result, mode) {
+    try {
+        var canvas = document.createElement('canvas');
+        canvas.width = 600;
+        canvas.height = 800;
+        var ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#0f0f0f';
+        ctx.fillRect(0, 0, 600, 800);
+
+        ctx.strokeStyle = '#c9a94e';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(10, 10, 580, 780);
+
+        ctx.fillStyle = '#f0d060';
+        ctx.font = '32px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(result.benGua.name + ' ' + result.benGua.symbol, 300, 80);
+
+        ctx.font = '64px serif';
+        ctx.fillText(result.benGua.symbol, 300, 180);
+
+        ctx.fillStyle = '#e0d6c2';
+        ctx.font = '18px serif';
+        wrapText(ctx, result.benGua.judgement, 40, 230, 520, 28);
+
+        var yPos = 290;
+        ctx.font = '16px serif';
+        if (result.yaoLines) {
+            for (var i = 5; i >= 0; i--) {
+                var label = result.yaoLines[i].changing ? '⚡ ' : '';
+                ctx.fillStyle = result.yaoLines[i].changing ? '#c9a94e' : '#e0d6c2';
+                ctx.textAlign = 'left';
+                ctx.fillText(label + result.benGua.lines[i], 40, yPos);
+                yPos += 26;
+            }
+        }
+
+        if (result.bianGua) {
+            yPos += 12;
+            ctx.fillStyle = '#c9a94e';
+            ctx.font = '18px serif';
+            ctx.textAlign = 'left';
+            ctx.fillText('→ 变卦：' + result.bianGua.name + ' ' + result.bianGua.symbol, 40, yPos);
+            yPos += 26;
+            ctx.fillStyle = '#e0d6c2';
+            ctx.font = '16px serif';
+            ctx.fillText(result.bianGua.judgement, 40, yPos);
+        }
+
+        ctx.fillStyle = 'rgba(201, 169, 78, 0.4)';
+        ctx.font = '14px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('问卦 · WenGua', 300, 770);
+
+        ctx.fillStyle = 'rgba(201, 169, 78, 0.15)';
+        ctx.font = '12px serif';
+        ctx.fillText('本工具仅供娱乐，结果请勿作为人生决策依据', 300, 755);
+
+        canvas.toBlob(function(blob) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = result.benGua.name.replace(/[^一-龥]/g, '') + '_问卦.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+        });
+    } catch(e) { console.warn('[share] Canvas share failed:', e); }
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    var chars = text.split('');
+    var line = '';
+    var lineY = y;
+    for (var i = 0; i < chars.length; i++) {
+        var testLine = line + chars[i];
+        if (ctx.measureText(testLine).width > maxWidth && i > 0) {
+            ctx.fillText(line, x, lineY);
+            line = chars[i];
+            lineY += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    ctx.fillText(line, x, lineY);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -761,7 +926,8 @@ document.addEventListener("DOMContentLoaded", () => {
         btnCast.disabled = true;
         btnCast.textContent = "起卦中…";
 
-        document.querySelectorAll('#gua-display .yao').forEach(el => el.remove());
+        // [FIX C1] 同时清理 .coin-flip 元素，避免铜钱旋转动画残留
+        document.querySelectorAll('#gua-display .yao, #gua-display .coin-flip').forEach(el => el.remove());
         const placeholder = guaDisplay.querySelector('.placeholder');
         if (placeholder) placeholder.style.display = 'none';
 
@@ -771,7 +937,11 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = 0; i < 6; i++) {
             const yao = castOnce();
             yaoLines.push(yao);
-            Animation.drawGua(guaDisplay, yao);
+            Animation.animateCoinFlip(guaDisplay, yao);
+            playCastSound();
+            if (yao.changing) {
+                setTimeout(playChangingSound, 200);
+            }
             await new Promise(r => setTimeout(r, 500));
         }
 
@@ -835,6 +1005,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('btn-name-cast').addEventListener('click', doNameCast);
     document.getElementById('input-name').addEventListener('keydown', function (e) {
         if (e.key === 'Enter') doNameCast();
+    });
+
+    document.getElementById('btn-share').addEventListener('click', function () {
+        var result = null;
+        if (currentMode === 'tongqian') result = savedTongqianResult;
+        else if (currentMode === 'meihua') result = savedMeihuaResult;
+        else if (currentMode === 'name') result = savedNameResult;
+        if (result) generateShareCard(result, currentMode);
     });
     // [FIX B4] 输入时清除 error 样式，与梅花输入框行为一致
     document.getElementById('input-name').addEventListener('input', function () {

@@ -2,7 +2,7 @@
 
 > 🎋 一枚精致的小算卦玩具 — 心存疑问，掷爻问卦。
 
-![版本](https://img.shields.io/badge/version-A%200.4-aa8844)
+![版本](https://img.shields.io/badge/version-A%200.5-aa8844)
 ![状态](https://img.shields.io/badge/status-开发中-brightgreen)
 
 > ⚠️ **免责声明**：问卦 (AskTheOracle) 仅供娱乐，所有卦象解读不构成任何人生决策依据。
@@ -36,7 +36,8 @@
 ├── docs/                   # 文档
 │   ├── PRD-问卦-v0.2.md
 │   ├── PRD-问卦-v0.3.md
-│   └── PRD-问卦-v0.4.md
+│   ├── PRD-问卦-v0.4.md
+│   └── PRD-问卦-v0.5.md
 ├── research/               # 研究资料 (6 份)
 │   ├── 00-研究总报告.md
 │   ├── 01-八卦基础.md
@@ -49,11 +50,13 @@
 ├── .trae/specs/            # 开发规划
 │   ├── wengua-core-casting/
 │   ├── wengua-meihua/
-│   └── wengua-name-divination/
+│   ├── wengua-name-divination/
+│   └── wengua-polish/
 ├── versions/               # 版本归档
 │   ├── A0.2/               # 项目初始化
 │   ├── A0.3/               # 铜钱+梅花双模式
-│   └── A0.4/               # 姓名起卦+体验打磨（当前）
+│   ├── A0.4/               # 姓名起卦
+│   └── A0.5/               # 体验打磨+最终发布（当前）
 ├── LICENSE                 # AGPL v3
 ├── .gitignore
 └── README.md
@@ -67,8 +70,8 @@
 |------|------|------|
 | **A 0.2** | 项目初始化 · 资料研究 · 架构设计 | ✅ 已冻结 |
 | **A 0.3** | 铜钱掷爻 MVP + 梅花易数双模式 | ✅ 已冻结 |
-| **A 0.4** | 姓名起卦 + 笔画数据库 + 体验打磨 | 🔨 开发中 |
-| **A 0.5** | 动画音效 + 分享功能 + 最终发布 | 📋 规划中 |
+| **A 0.4** | 姓名起卦 + 笔画数据库 + 体验打磨 | ✅ 已冻结 |
+| **A 0.5** | 动画音效 + 分享功能 + 最终发布 | 🔨 开发中 |
 
 ---
 

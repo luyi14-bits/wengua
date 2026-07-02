@@ -41,3 +41,8 @@ build/
 *.pdb
 *.exe
 *.dll
+
+# ========================================
+# Version archives (historical only)
+# ========================================
+versions/

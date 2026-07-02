@@ -399,6 +399,11 @@ footer {
     background: rgba(201, 169, 78, 0.1);
 }
 
+.btn-share {
+    margin-top: 16px;
+    width: 100%;
+}
+
 /* --- Meihua Trigram Display --- */
 #gua-display.meihua-mode {
     flex-direction: row;
@@ -574,6 +579,39 @@ footer {
     margin-bottom: 12px;
     border-radius: 10px;
     border: 1px solid;
+}
+
+/* --- Coin Flip Animation --- */
+@keyframes coinFlip {
+    0%   { transform: rotateY(0deg) scale(0); opacity: 0; }
+    50%  { transform: rotateY(360deg) scale(1.2); opacity: 1; }
+    100% { transform: rotateY(720deg) scale(1); opacity: 1; }
+}
+
+@keyframes coinPulse {
+    0%,100% { box-shadow: 0 0 4px var(--color-accent); }
+    50% { box-shadow: 0 0 20px var(--color-accent-glow); }
+}
+
+.coin-flip {
+    transform-style: preserve-3d;
+    animation: coinFlip 0.5s ease-out forwards;
+}
+
+.coin-flip.coin-changing {
+    animation: coinFlip 0.5s ease-out forwards, coinPulse 1s ease-in-out 0.5s infinite;
+}
+
+.coin-flip .coin-icon {
+    display: inline-block;
+    font-size: 28px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.coin-flip .coin-text {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* --- Responsive (480px) --- */

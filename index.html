@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; frame-ancestors 'none';">
+    <!-- [FIX F-06][FIX F-07] CSP: 移除 unsafe-inline（btn-share 已改用 CSS class）+ 移除 frame-ancestors（meta 标签不兼容） -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none';">
     <title>问卦 · WenGua</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -68,6 +69,7 @@
                 <div id="gua-name"></div>
                 <div id="gua-symbol"></div>
                 <div id="gua-interpretation"></div>
+                <button id="btn-share" class="btn-aux btn-share">📤 分享卦象</button>
             </div>
         </main>
 
