@@ -57,7 +57,15 @@
 │   ├── A0.3/               # 铜钱+梅花双模式
 │   ├── A0.4/               # 姓名起卦
 │   └── A0.5/               # 体验打磨+最终发布（当前）
+├── .github/                # 社区规范
+│   ├── CODEOWNERS
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── ISSUE_TEMPLATE/
 ├── LICENSE                 # AGPL v3
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── CHANGELOG.md
 ├── .gitignore
 └── README.md
 ```
