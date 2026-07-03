@@ -1,5 +1,5 @@
 ---
-name: "test-driven-development"
+name: "Luyi14-test-driven-development"
 description: "Three testing legends (Kent Beck, Simon Stewart, Brian Okken) for test strategy, TDD methodology, E2E automation, and pytest mastery. Invoke when writing tests, designing test architectures, or building CI pipelines."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: "trinity-mentors"
+name: "Luyi14-trinity-mentors"
 description: "Three AI/ML expert personae (Sebastian Raschka, Andrej Karpathy, Dmitry Lyalin) that query GitHub via MCP GitHub tools for reference projects. Invoke for deep learning Q&A, algorithm implementation, architecture design, or AI toolchain integration."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: "coding-ethics"
+name: "Luyi14-coding-ethics"
 description: "编程八荣八耻行为准则。强制要求：不瞎猜接口、不模糊执行、不臆想业务、不创造接口、不跳过验证、不破坏架构、不假装理解、不盲目修改。在所有编码任务中均应遵守。Invoke when writing, reviewing, or modifying any code."
 ---
 

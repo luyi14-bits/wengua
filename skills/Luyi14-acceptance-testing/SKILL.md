@@ -1,5 +1,5 @@
 ---
-name: "acceptance-testing"
+name: "Luyi14-acceptance-testing"
 description: "Rigorous acceptance testing methodology for any software project. Invoke when writing acceptance reports, verifying tasks, reviewing code, or performing QA on any module — enforces strict evidence-based verification with tables, severity grading, and fix tracking."
 ---
 

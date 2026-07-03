@@ -1,5 +1,5 @@
 ---
-name: "project-secretary"
+name: "Luyi14-project-secretary"
 description: "Project management secretary for any software project — organizes files, manages pipeline, maintains docs, creates skills, handles git. Invoke for any project administration, housekeeping, or cross-team coordination."
 ---
 

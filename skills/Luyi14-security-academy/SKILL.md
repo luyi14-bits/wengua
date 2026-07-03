@@ -1,5 +1,5 @@
 ---
-name: "security-academy"
+name: "Luyi14-security-academy"
 description: "Three world-class security experts (Daniel Miessler, James Kettle, Tavis Ormandy) for security review. Invoke when auditing code, reviewing APIs, checking desktop packaging, or hardening any module against attacks."
 ---
 

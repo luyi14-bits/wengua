@@ -1,5 +1,5 @@
 ---
-name: "spec-pipeline"
+name: "Luyi14-spec-pipeline"
 description: "Pipeline engineer for any software project — writes specs, splits tasks, creates checklists, tracks progress, coordinates handoffs between dev and QA. Invoke when planning new features, writing specs, splitting tasks, or managing the delivery pipeline."
 ---
 
