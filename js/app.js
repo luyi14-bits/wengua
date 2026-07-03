@@ -906,8 +906,10 @@ function renderMeihuaResult(result) {
     }
     fragment.appendChild(focusDiv);
 
-    // 五格姓名学卡片
-    renderWuge(result, fragment);
+    // 【FIX】五格姓名学卡片仅用于姓名起卦结果，梅花易数不含 strokes 字段
+    if (result.strokes) {
+        renderWuge(result, fragment);
+    }
 
     interpEl.appendChild(fragment);
 }

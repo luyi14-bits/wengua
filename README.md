@@ -4,9 +4,9 @@
 
 🌐 **在线体验**：[luyi14-bits.github.io/AskTheOracle](https://luyi14-bits.github.io/AskTheOracle/)（手机浏览器打开可安装到桌面）
 
-![版本](https://img.shields.io/badge/version-A%200.8-aa8844)
+![版本](https://img.shields.io/badge/version-A%200.8.5-aa8844)
 ![协议](https://img.shields.io/badge/license-AGPL%20v3-blue)
-![状态](https://img.shields.io/badge/status-八模式就绪-success)
+![状态](https://img.shields.io/badge/status-八模式+8Skill就绪-success)
 
 > ⚠️ **免责声明**：天问 (AskTheOracle) 仅供娱乐，所有卦象解读不构成任何人生决策依据。
 
@@ -72,7 +72,11 @@
 │   ├── A0.5/               # 体验打磨
 │   ├── A0.6/               # PWA 移动端
 │   ├── A0.7/               # 掷筊+白话
-│   └── A0.8/               # 交叉+小六壬+五格（当前）
+│   ├── A0.8/               # 交叉+小六壬+五格
+│   └── A0.8.5/             # Skill泛化+Luyi14前缀（当前）
+├── skills/                 # 项目 Skill（8 个，全部 Luyi14- 前缀）
+
+...（后续省略）
 ├── .github/                # 社区规范
 ├── LICENSE                 # AGPL v3
 ├── CONTRIBUTING.md
@@ -95,7 +99,8 @@
 | **A 0.5** | 动画音效 + 分享功能 + 体验打磨 | ✅ 已冻结 |
 | **A 0.6** | PWA 移动端 — 一键安装到桌面，离线可用 | ✅ 已冻结 |
 | **A 0.7** | 掷筊问杯 + 白话解卦 — 第六种起卦模式，64 卦白话 | ✅ 已冻结 |
-| **A 0.8** | 交叉起卦 + 掐指小六壬 + 五格姓名学 — 八模式就绪 | ✅ 已发布 |
+| **A 0.8** | 交叉起卦 + 掐指小六壬 + 五格姓名学 — 八模式就绪 | ✅ 已冻结 |
+| **A 0.8.5** | 8 Skill 泛化 + Luyi14- 前缀统一命名 + 通用规则 | ✅ 已发布 |
 
 ---
 
