@@ -6,29 +6,6 @@ All notable changes to AskTheOracle will be documented in this file.
 
 ## [A 0.8.5] — 2026-07-03
 
-### Changed
-- 8 Skill 全部泛化 — 移除 70 处项目专属引用（MISS/问卦/WenGua/天问），保留方法论
-- 8 Skill 统一追加通用规则：任务闭环（TodoWrite ✅ + 更新管线）+ 禁止越权
-- 8 Skill 统一加 Luyi14- 前缀命名，交叉引用同步更新
-- `pm-mentor` → `Luyi14-pm-mentor`, `spec-pipeline` → `Luyi14-spec-pipeline`, 等
-
-### Skill 清单（8 个）
-- `Luyi14-acceptance-testing` — 验收方法论
-- `Luyi14-coding-ethics` — 编程八荣八耻
-- `Luyi14-pm-mentor` — 产品经理导师
-- `Luyi14-project-secretary` — 项目秘书
-- `Luyi14-security-academy` — 安全学院
-- `Luyi14-spec-pipeline` — 管线工程师
-- `Luyi14-test-driven-development` — 测试铁三角
-- `Luyi14-trinity-mentors` — AI/ML 三位一体
-
-### Archived
-- `versions/A0.8.5` snapshot (78 files)
-
----
-
-## [A 0.8] — 2026-07-03
-
 ### Added
 - 交叉起卦 mode — 姓名 + 生辰八字合参终身卦 (`crossCast` function)
 - 掐指小六壬 mode — 月日时三推掌诀六神断吉凶 (大安/留连/速喜/赤口/小吉/空亡)
@@ -37,10 +14,11 @@ All notable changes to AskTheOracle will be documented in this file.
 - `wengua-v08` spec & acceptance report
 
 ### Fixed
-- 交叉起卦命运等级偏高 BUG — 删 auto-boost + 降低 badCount 降级阈值
+- 梅花易数结果不显示解读 BUG
+- 交叉起卦命运等级偏高 — 删 auto-boost + 降低 badCount 降级阈值
 
 ### Archived
-- `versions/A0.8` snapshot (70 files)
+- `versions/A0.8.5` snapshot (78 files)
 
 ---
 
